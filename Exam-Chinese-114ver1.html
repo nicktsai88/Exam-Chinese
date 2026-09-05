@@ -1256,7 +1256,6 @@
                                 <button onclick="switchTab('mistakes')" id="nav-mistakes" class="whitespace-nowrap px-2 py-2 md:px-3 lg:px-4 lg:py-2.5 rounded-xl text-sm md:text-base lg:text-lg xl:text-xl font-bold transition-all duration-200 border-2 border-transparent text-white/70 hover:text-white hover:bg-white/10"><span class="mr-1.5 hidden sm:inline">🩹</span>錯題</button>
                                 <button onclick="switchTab('favorites')" id="nav-favorites" class="whitespace-nowrap px-2 py-2 md:px-3 lg:px-4 lg:py-2.5 rounded-xl text-sm md:text-base lg:text-lg xl:text-xl font-bold transition-all duration-200 border-2 border-transparent text-white/70 hover:text-white hover:bg-white/10"><span class="mr-1.5 hidden sm:inline">💖</span>最愛</button>
                                 <button onclick="switchTab('history')" id="nav-history" class="whitespace-nowrap px-2 py-2 md:px-3 lg:px-4 lg:py-2.5 rounded-xl text-sm md:text-base lg:text-lg xl:text-xl font-bold transition-all duration-200 border-2 border-transparent text-white/70 hover:text-white hover:bg-white/10"><span class="mr-1.5 hidden sm:inline">📜</span>紀錄</button>
-                                <button onclick="printAllQuestions()" class="whitespace-nowrap px-2 py-2 md:px-3 lg:px-4 lg:py-2.5 rounded-xl text-sm md:text-base lg:text-lg xl:text-xl font-bold transition-all duration-200 border-2 border-transparent text-white/70 hover:text-white hover:bg-white/10" title="一鍵列印全卷考題"><span class="mr-1.5 hidden sm:inline">🖨️</span>列印</button>
                                 
                                 <div class="ml-1 sm:ml-2 lg:ml-4 flex items-center pl-2 sm:pl-3 lg:pl-5 border-l border-white/30 shrink-0 whitespace-nowrap gap-1 md:gap-2">
                                     <div class="text-sm md:text-base lg:text-lg xl:text-xl font-bold bg-white/20 px-2 py-1.5 md:px-3 lg:px-4 lg:py-2 rounded-xl text-white shadow-inner flex items-center">
@@ -1879,69 +1878,6 @@
                     </div>
                 </div>
             `;
-        };
-
-        window.printAllQuestions = () => {
-            const qList = generate100Questions();
-            const baseUrl = window.location.href.split('?')[0].split('#')[0];
-            
-            let printHtml = `
-            <!DOCTYPE html>
-            <html lang="zh-TW">
-            <head>
-                <meta charset="UTF-8">
-                <title>114年國文會考題 - 列印全卷</title>
-                <base href="${baseUrl}">
-                <style>
-                    body { font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif; line-height: 1.6; color: #000; padding: 20px; max-width: 800px; margin: 0 auto; }
-                    h1 { text-align: center; font-size: 28px; margin-bottom: 20px; border-bottom: 2px solid #ccc; padding-bottom: 10px; }
-                    .question-block { margin-bottom: 35px; page-break-inside: avoid; border-bottom: 1px dashed #eee; padding-bottom: 15px; }
-                    .question-text { font-size: 18px; font-weight: bold; margin-bottom: 15px; }
-                    .options { margin-left: 20px; list-style-type: upper-alpha; font-size: 18px; }
-                    .options li { margin-bottom: 8px; }
-                    img { max-width: 100%; height: auto; display: block; margin: 15px 0; border: 1px solid #ddd; }
-                    .print-btn-container { text-align: center; margin-bottom: 30px; position: sticky; top: 0; background: rgba(255,255,255,0.9); padding: 15px; z-index: 100; border-bottom: 1px solid #ddd; }
-                    .print-btn { background-color: #F5A3C8; color: white; border: none; padding: 12px 24px; font-size: 18px; font-weight: bold; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background-color 0.3s; }
-                    .print-btn:hover { background-color: #f472b6; }
-                    @media print {
-                        .print-btn-container { display: none !important; }
-                        body { max-width: none; padding: 0; margin: 0; }
-                        .question-block { border-bottom: none; }
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="print-btn-container no-print">
-                    <button class="print-btn" onclick="window.print()">🖨️ 確認列印考卷</button>
-                    <p style="font-size:14px; color:#666; margin-top:8px;">(建議等待圖片全部載入完成後，再點擊列印按鈕)</p>
-                </div>
-                <h1>114年國中教育會考 國文科考題全卷</h1>
-            `;
-
-            qList.forEach((q, idx) => {
-                let optionsHtml = '<ol class="options">';
-                q.opts.forEach(opt => {
-                    optionsHtml += `<li>${opt}</li>`;
-                });
-                optionsHtml += '</ol>';
-
-                printHtml += `
-                <div class="question-block">
-                    <div class="question-text">${idx + 1}. ${q.q}</div>
-                    ${optionsHtml}
-                </div>
-                `;
-            });
-
-            printHtml += `
-            </body>
-            </html>
-            `;
-
-            const printWin = window.open('', '_blank');
-            printWin.document.open();
-            printWin.document.write(printHtml);
-            printWin.document.close();
         };
 
         initApp();
