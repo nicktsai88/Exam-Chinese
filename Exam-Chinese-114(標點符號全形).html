@@ -1907,13 +1907,8 @@
 
                     h1 { text-align: center; font-size: 24px; margin-bottom: 20px; border-bottom: 2px solid #ccc; padding-bottom: 10px; }
                     .question-block { margin-bottom: 25px; page-break-inside: avoid; border-bottom: 1px dashed #eee; padding-bottom: 10px; }
-                    
-                    /* 凸排排版設計 */
-                    .question-row { display: flex; align-items: flex-start; margin-bottom: 10px; }
-                    .q-num { font-size: 15px; font-weight: bold; min-width: 32px; flex-shrink: 0; }
-                    .q-text { font-size: 15px; font-weight: bold; flex: 1; }
-                    .options { margin-left: 32px; list-style-type: upper-alpha; font-size: 15px; padding-left: 20px; margin-top: 0; }
-                    
+                    .question-text { font-size: 15px; font-weight: bold; margin-bottom: 10px; }
+                    .options { margin-left: 20px; list-style-type: upper-alpha; font-size: 15px; }
                     .options li { margin-bottom: 4px; }
                     img { max-width: 70%; max-height: 300px; object-fit: contain; display: block; margin: 10px 0; border: 1px solid #ddd; }
                     .print-btn-container { text-align: center; margin-bottom: 30px; position: sticky; top: 0; background: rgba(255,255,255,0.9); padding: 15px; z-index: 100; border-bottom: 1px solid #ddd; }
@@ -1943,10 +1938,7 @@
 
                 printHtml += `
                 <div class="question-block">
-                    <div class="question-row">
-                        <div class="q-num">${idx + 1}.</div>
-                        <div class="q-text">${q.q}</div>
-                    </div>
+                    <div class="question-text">${idx + 1}. ${q.q}</div>
                     ${optionsHtml}
                 </div>
                 `;
