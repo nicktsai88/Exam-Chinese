@@ -1926,7 +1926,10 @@
                     .box { display: inline-block; width: 22px; height: 22px; border: 2px solid #000; margin-right: 6px; flex-shrink: 0; }
                     sup { font-size: 16px; margin-left: 2px; }
 
-                    .questions-title { text-align: center; font-size: 20px; margin-bottom: 20px; border-bottom: 2px solid #ccc; padding-bottom: 10px; }
+                    /* 學生資訊欄位 */
+                    .student-info { font-size: 22px; margin-bottom: 40px; display: flex; justify-content: center; gap: 40px; }
+                    .info-field { display: flex; align-items: flex-end; }
+                    .info-line { border-bottom: 1px solid #000; width: 180px; display: inline-block; margin-left: 10px; height: 20px; }
                     
                     /* 縮小題目之間的間距 */
                     .question-block { margin-bottom: 12px; page-break-inside: avoid; border-bottom: 1px dashed #eee; padding-bottom: 8px; }
@@ -1967,6 +1970,11 @@
                     <div class="cover-title-sub">國文科試題本</div>
                     <div class="cover-title-range">範圍：全冊</div>
                     
+                    <div class="student-info">
+                        <div class="info-field"><span>姓名：</span><span class="info-line"></span></div>
+                        <div class="info-field"><span>測驗日期：</span><span class="info-line"></span></div>
+                    </div>
+                    
                     <table class="grading-table">
                         <tr>
                             <td colspan="2" class="score-row">答對題數：<span style="display:inline-block; border-bottom:1px solid #000; width: 60px; margin: 0 10px;"></span> 題</td>
@@ -2000,7 +2008,6 @@
                 </div>
 
                 <!-- 考題開始 (第二頁) -->
-                <div class="questions-title">114年國中教育會考 國文科考題</div>
             `;
 
             qList.forEach((q, idx) => {
