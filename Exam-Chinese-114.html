@@ -1914,9 +1914,12 @@
                     .question-row { display: flex; align-items: flex-start; margin-bottom: 8px; }
                     .q-num { font-size: 15px; font-weight: bold; min-width: 32px; flex-shrink: 0; }
                     .q-text { font-size: 15px; font-weight: bold; flex: 1; }
-                    .options { margin-left: 32px; list-style-type: upper-alpha; font-size: 15px; padding-left: 20px; margin-top: 0; margin-bottom: 4px; }
                     
-                    .options li { margin-bottom: 2px; }
+                    /* 選項改為自訂的括號樣式與對齊 */
+                    .options { margin-left: 32px; font-size: 15px; padding-left: 0; margin-top: 0; margin-bottom: 4px; }
+                    .opt-item { display: flex; align-items: flex-start; margin-bottom: 2px; }
+                    .opt-label { min-width: 40px; flex-shrink: 0; }
+                    .opt-content { flex: 1; }
                     
                     /* 稍微加大圖片尺寸，兼顧版面緊湊與圖片清晰度 */
                     img { max-width: 60%; max-height: 240px; object-fit: contain; display: block; margin: 8px 0; border: 1px solid #ddd; }
@@ -1940,11 +1943,12 @@
             `;
 
             qList.forEach((q, idx) => {
-                let optionsHtml = '<ol class="options">';
-                q.opts.forEach(opt => {
-                    optionsHtml += `<li>${opt}</li>`;
+                let optionsHtml = '<div class="options">';
+                q.opts.forEach((opt, optIdx) => {
+                    const letter = String.fromCharCode(65 + optIdx);
+                    optionsHtml += `<div class="opt-item"><div class="opt-label">（${letter}）</div><div class="opt-content">${opt}</div></div>`;
                 });
-                optionsHtml += '</ol>';
+                optionsHtml += '</div>';
 
                 printHtml += `
                 <div class="question-block">
