@@ -1905,7 +1905,28 @@
                     u { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
                     u.book { text-decoration: underline wavy; text-underline-offset: 4px; text-decoration-thickness: 1px; }
 
-                    h1 { text-align: center; font-size: 24px; margin-bottom: 20px; border-bottom: 2px solid #ccc; padding-bottom: 10px; }
+                    /* 封面頁排版 */
+                    .cover-page { 
+                        display: flex; 
+                        flex-direction: column; 
+                        justify-content: center; 
+                        align-items: center; 
+                        min-height: 85vh; 
+                        page-break-after: always; /* 確保封面後強制換頁 */
+                    }
+                    .cover-title-main { font-size: 32px; margin-bottom: 15px; font-weight: bold; text-align: center; }
+                    .cover-title-sub { font-size: 48px; margin-bottom: 25px; font-weight: bold; letter-spacing: 5px; text-align: center; }
+                    .cover-title-range { font-size: 22px; margin-bottom: 60px; text-align: center; }
+                    
+                    /* 封面頁成績表格 */
+                    .grading-table { border-collapse: collapse; font-size: 26px; border: 2px solid #000; margin: 0 auto; width: 450px; }
+                    .grading-table td { border: 1px solid #000; }
+                    .score-row { text-align: center; padding: 20px; font-size: 28px; }
+                    .box-wrap { display: inline-flex; align-items: center; width: 90px; }
+                    .box { display: inline-block; width: 22px; height: 22px; border: 2px solid #000; margin-right: 6px; flex-shrink: 0; }
+                    sup { font-size: 16px; margin-left: 2px; }
+
+                    .questions-title { text-align: center; font-size: 20px; margin-bottom: 20px; border-bottom: 2px solid #ccc; padding-bottom: 10px; }
                     
                     /* 縮小題目之間的間距 */
                     .question-block { margin-bottom: 12px; page-break-inside: avoid; border-bottom: 1px dashed #eee; padding-bottom: 8px; }
@@ -1939,7 +1960,47 @@
                     <button class="print-btn" onclick="window.print()">🖨️ 確認列印考卷</button>
                     <p style="font-size:14px; color:#666; margin-top:8px;">(建議等待圖片全部載入完成後，再點擊列印按鈕)</p>
                 </div>
-                <h1>114年國中教育會考 國文科考題全卷</h1>
+                
+                <!-- 獨立封面頁 -->
+                <div class="cover-page">
+                    <div class="cover-title-main">114年國中教育會考</div>
+                    <div class="cover-title-sub">國文科試題本</div>
+                    <div class="cover-title-range">範圍：全冊</div>
+                    
+                    <table class="grading-table">
+                        <tr>
+                            <td colspan="2" class="score-row">答對題數：<span style="display:inline-block; border-bottom:1px solid #000; width: 60px; margin: 0 10px;"></span> 題</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: center; border-bottom: none; padding-bottom: 5px; padding-top: 15px;">☆☆能力等級☆☆</td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: none; border-right: none; border-bottom: none; text-align: right; width: 130px; padding: 5px 0;">精　熟：</td>
+                            <td style="border-top: none; border-left: none; border-bottom: none; padding: 5px 0 5px 10px;">
+                                <span class="box-wrap"><span class="box"></span>A<sup>++</sup></span>
+                                <span class="box-wrap"><span class="box"></span>A<sup>+</sup></span>
+                                <span class="box-wrap"><span class="box"></span>A</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: none; border-right: none; border-bottom: none; text-align: right; padding: 5px 0;">基　礎：</td>
+                            <td style="border-top: none; border-left: none; border-bottom: none; padding: 5px 0 5px 10px;">
+                                <span class="box-wrap"><span class="box"></span>B<sup>++</sup></span>
+                                <span class="box-wrap"><span class="box"></span>B<sup>+</sup></span>
+                                <span class="box-wrap"><span class="box"></span>B</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: none; border-right: none; text-align: right; padding: 5px 0 20px 0;">待加強：</td>
+                            <td style="border-top: none; border-left: none; padding: 5px 0 20px 10px;">
+                                <span class="box-wrap"><span class="box"></span>C</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- 考題開始 (第二頁) -->
+                <div class="questions-title">114年國中教育會考 國文科考題</div>
             `;
 
             qList.forEach((q, idx) => {
