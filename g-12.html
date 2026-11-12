@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#4f6f8f">
+  <meta name="description" content="第12回 1～6冊（二）國文逐題解析與互動測驗">
+  <title>第12回 1～6冊（二）｜國文逐題解析</title>
+  <style>
+    :root {
+      --ink: #26313d;
+      --muted: #5d6b78;
+      --paper: #fffef9;
+      --canvas: #f5f2ea;
+      --line: #d8dfe5;
+      --navy: #35516b;
+      --pink: #e76583;
+      --pink-soft: #fff0f4;
+      --orange: #d97720;
+      --orange-soft: #fff4e3;
+      --blue: #3479a8;
+      --blue-soft: #eaf6ff;
+      --green: #2d8062;
+      --green-soft: #eaf8f0;
+      --purple: #7859a7;
+      --purple-soft: #f4effc;
+      --correct: #26734d;
+      --correct-soft: #eaf8f0;
+      --wrong: #b23b43;
+      --wrong-soft: #fff0f1;
+      --shadow: 0 10px 30px rgba(44, 55, 64, .12);
+      --text-scale: 1;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--canvas); }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12px 12px, rgba(77,102,122,.05) 1.5px, transparent 1.6px) 0 0/24px 24px,
+        var(--canvas);
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+      font-size: calc(16px * var(--text-scale));
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    button:disabled { cursor: not-allowed; opacity: .48; }
+    button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, [tabindex]:focus-visible {
+      outline: 3px solid #0a73b8;
+      outline-offset: 3px;
+    }
+    .skip-link {
+      position: fixed; left: 1rem; top: -5rem; z-index: 1000;
+      padding: .7rem 1rem; border-radius: .75rem; color: #fff; background: #1f4f72;
+    }
+    .skip-link:focus { top: 1rem; }
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      border-bottom: 1px solid rgba(53,81,107,.2);
+      background: rgba(255,254,249,.96);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 3px 18px rgba(35,51,65,.08);
+    }
+    .topbar-inner {
+      width: min(1500px, 100%); margin: 0 auto; padding: .65rem clamp(.7rem, 2vw, 1.4rem);
+      display: flex; flex-wrap: wrap; gap: .65rem; align-items: center; justify-content: space-between;
+    }
+    .brand { display: flex; align-items: center; gap: .65rem; min-width: 0; }
+    .brand-mark {
+      width: 2.55rem; height: 2.55rem; flex: 0 0 auto; display: grid; place-items: center;
+      border-radius: 45% 55% 48% 52%; color: #fff; background: linear-gradient(145deg, #3c81ac, #775fa6);
+      box-shadow: 0 4px 0 rgba(53,81,107,.25); font-weight: 900;
+    }
+    .brand-text { min-width: 0; line-height: 1.2; }
+    .brand-text strong { display: block; font-size: .98em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .brand-text small { display: block; color: var(--muted); font-size: .76em; }
+    .tool-groups { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+    .segmented, .font-tools, .identity-chip {
+      display: flex; align-items: center; gap: .3rem; padding: .28rem;
+      border: 1px solid var(--line); border-radius: .9rem; background: #fff;
+    }
+    .tool-button, .mode-button {
+      min-height: 2.35rem; padding: .42rem .72rem; border: 0; border-radius: .65rem;
+      color: var(--navy); background: transparent; font-weight: 800;
+    }
+    .mode-button[aria-pressed="true"] { color: #fff; background: var(--navy); box-shadow: 0 3px 0 #203b52; }
+    .font-readout { min-width: 3.8rem; text-align: center; color: var(--navy); font-weight: 900; }
+    .identity-chip { padding-left: .65rem; color: var(--muted); }
+    .identity-chip button { white-space: nowrap; }
+    .sr-only {
+      position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important;
+      margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important;
+      white-space: nowrap !important; border: 0 !important;
+    }
+    .hero {
+      position: relative; overflow: hidden; color: #fff;
+      background: linear-gradient(125deg, #35516b 0%, #3479a8 52%, #765aa0 100%);
+    }
+    .hero::before, .hero::after {
+      content: ""; position: absolute; border-radius: 50%; background: rgba(255,255,255,.1);
+    }
+    .hero::before { width: 21rem; height: 21rem; right: -4rem; top: -13rem; }
+    .hero::after { width: 12rem; height: 12rem; left: -4rem; bottom: -8rem; }
+    .hero-inner {
+      position: relative; width: min(1300px, 100%); margin: 0 auto;
+      padding: clamp(1.4rem, 4vw, 3.2rem) clamp(1rem, 3vw, 2rem);
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 26rem); gap: 1.2rem; align-items: end;
+    }
+    .eyebrow { margin: 0 0 .4rem; font-size: .85em; font-weight: 900; letter-spacing: .16em; opacity: .88; }
+    h1 { margin: 0; font-size: clamp(1.8em, 4.6vw, 3.6em); line-height: 1.12; letter-spacing: .02em; }
+    .hero p { max-width: 62ch; margin: .8rem 0 0; color: rgba(255,255,255,.9); }
+    .hero-summary { padding: 1rem; border: 1px solid rgba(255,255,255,.32); border-radius: 1.1rem; background: rgba(255,255,255,.12); }
+    .summary-row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+    .summary-row strong { font-size: 1.75em; }
+    .progress-track { height: .7rem; margin-top: .65rem; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,.22); }
+    .progress-fill { width: 0; height: 100%; border-radius: inherit; background: #fff176; transition: width .25s ease; }
+    .layout {
+      width: min(1500px, 100%); margin: 0 auto; padding: 1.1rem clamp(.7rem, 2vw, 1.4rem) 5rem;
+      display: grid; grid-template-columns: 15.5rem minmax(0, 1fr); gap: 1rem; align-items: start;
+    }
+    .sidebar {
+      position: sticky; top: 5.4rem; max-height: calc(100vh - 6.2rem); overflow: auto;
+      padding: 1rem; border: 1px solid var(--line); border-radius: 1rem; background: rgba(255,254,249,.96); box-shadow: var(--shadow);
+    }
+    .sidebar h2 { margin: 0 0 .25rem; color: var(--navy); font-size: 1em; }
+    .sidebar p { margin: 0 0 .75rem; color: var(--muted); font-size: .82em; }
+    .question-nav { display: grid; grid-template-columns: repeat(5, 1fr); gap: .35rem; }
+    .nav-q {
+      aspect-ratio: 1; min-width: 0; padding: 0; border: 1px solid #c8d1d8; border-radius: .55rem;
+      color: var(--navy); background: #fff; font-weight: 900;
+    }
+    .nav-q.answered { border-color: #78aa91; background: var(--correct-soft); }
+    .nav-q.wrong { border-color: #d7848a; color: var(--wrong); background: var(--wrong-soft); }
+    .nav-q.current { outline: 3px solid #f0b834; outline-offset: 1px; }
+    .sidebar-actions { display: grid; gap: .5rem; margin-top: .85rem; }
+    .primary, .secondary, .danger {
+      min-height: 2.65rem; border-radius: .75rem; padding: .55rem .85rem; font-weight: 900;
+    }
+    .primary { border: 1px solid #29445c; color: #fff; background: var(--navy); }
+    .secondary { border: 1px solid #b9c7d1; color: var(--navy); background: #fff; }
+    .danger { border: 1px solid #d9858a; color: var(--wrong); background: #fff6f6; }
+    .content { min-width: 0; }
+    .notice {
+      margin-bottom: 1rem; padding: .85rem 1rem; border: 1px solid #d5c679; border-left: .42rem solid #d19b18;
+      border-radius: .85rem; color: #5b4a15; background: #fffbea;
+    }
+    .section-heading {
+      margin: 1.6rem 0 .85rem; padding: .7rem 1rem; border-radius: .85rem;
+      color: #fff; background: linear-gradient(110deg, var(--navy), #4e7b9e);
+      box-shadow: 0 5px 0 rgba(53,81,107,.2);
+    }
+    .section-heading h2 { margin: 0; font-size: 1.2em; }
+    .section-heading p { margin: .1rem 0 0; opacity: .85; font-size: .82em; }
+    .question-card {
+      --accent: var(--blue); --soft: var(--blue-soft);
+      position: relative; margin: 0 0 1rem; overflow: clip; scroll-margin-top: 6rem;
+      border: 1px solid var(--line); border-left: .5rem solid var(--accent);
+      border-radius: 1.15rem; background: var(--paper); box-shadow: var(--shadow);
+    }
+    .question-card:nth-of-type(5n+1) { --accent: var(--pink); --soft: var(--pink-soft); }
+    .question-card:nth-of-type(5n+2) { --accent: var(--orange); --soft: var(--orange-soft); }
+    .question-card:nth-of-type(5n+3) { --accent: var(--blue); --soft: var(--blue-soft); }
+    .question-card:nth-of-type(5n+4) { --accent: var(--green); --soft: var(--green-soft); }
+    .question-card:nth-of-type(5n) { --accent: var(--purple); --soft: var(--purple-soft); }
+    .card-head {
+      display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; justify-content: space-between;
+      padding: .8rem 1rem; border-bottom: 1px solid var(--line); background: var(--soft);
+    }
+    .q-title { display: flex; align-items: center; gap: .65rem; min-width: 0; }
+    .q-badge {
+      min-width: 3.25rem; padding: .35rem .55rem; border-radius: .7rem; color: #fff; background: var(--accent);
+      text-align: center; font-weight: 950; box-shadow: 0 3px 0 color-mix(in srgb, var(--accent), #000 22%);
+    }
+    .q-title h3 { margin: 0; color: var(--navy); font-size: 1.03em; }
+    .q-title small { display: block; color: var(--muted); font-size: .76em; }
+    .status-pill { padding: .28rem .65rem; border: 1px solid #c8d2da; border-radius: 99px; color: var(--muted); background: #fff; font-size: .8em; font-weight: 800; }
+    .status-pill.correct { border-color: #72aa8d; color: var(--correct); background: var(--correct-soft); }
+    .status-pill.wrong { border-color: #d88489; color: var(--wrong); background: var(--wrong-soft); }
+    .question-body { padding: clamp(.65rem, 2vw, 1rem); }
+    .image-shell { position: relative; overflow: hidden; border: 1px solid #bcc9d2; border-radius: .8rem; background: #fff; }
+    .question-image { display: block; width: 100%; height: auto; }
+    .zoom-button {
+      position: absolute; right: .6rem; bottom: .6rem; min-height: 2.55rem; padding: .5rem .75rem;
+      border: 1px solid rgba(32,59,82,.35); border-radius: .7rem; color: #fff; background: rgba(32,59,82,.9);
+      font-weight: 900; box-shadow: 0 4px 14px rgba(0,0,0,.2);
+    }
+    .answers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .55rem; margin-top: .8rem; }
+    .answer-button {
+      min-height: 3.25rem; border: 2px solid #aebbc5; border-radius: .8rem; color: var(--navy); background: #fff;
+      font-size: 1.15em; font-weight: 950;
+    }
+    .answer-button:hover:not(:disabled) { border-color: var(--accent); background: var(--soft); transform: translateY(-1px); }
+    .answer-button.is-correct { border-color: var(--correct); color: var(--correct); background: var(--correct-soft); }
+    .answer-button.is-wrong { border-color: var(--wrong); color: var(--wrong); background: var(--wrong-soft); }
+    .answer-button.is-correct:disabled, .answer-button.is-wrong:disabled { opacity: 1; }
+    .feedback { margin-top: .8rem; padding: .75rem .9rem; border-radius: .8rem; font-weight: 900; }
+    .feedback.correct { border: 1px solid #78aa91; color: var(--correct); background: var(--correct-soft); }
+    .feedback.wrong { border: 1px solid #d7848a; color: var(--wrong); background: var(--wrong-soft); }
+    .analysis-panel { margin-top: .8rem; }
+    .analysis-panel h4, .classical h4 { margin: 0 0 .55rem; color: var(--navy); font-size: 1em; }
+    .choice-analysis { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }
+    .choice-card { min-width: 0; padding: .75rem; border: 1px solid #ccd6dd; border-radius: .85rem; background: #fff; }
+    .choice-card.correct { border-color: #69a382; background: var(--correct-soft); }
+    .choice-card.wrong { border-color: #d48288; background: var(--wrong-soft); }
+    .choice-label { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-bottom: .3rem; font-weight: 950; }
+    .choice-card p { margin: 0; color: #3c4853; }
+    .classical {
+      margin-top: .8rem; padding: .9rem; border: 1px solid #d8bf72; border-left: .42rem solid #b98418;
+      border-radius: .85rem; background: #fff9e8;
+    }
+    .word-table { width: 100%; border-collapse: collapse; margin: .5rem 0 .75rem; font-size: .92em; }
+    .word-table th, .word-table td { padding: .5rem; border: 1px solid #d8cda8; text-align: left; vertical-align: top; }
+    .word-table th { color: #514317; background: #f7edc9; }
+    .translation { margin: 0; white-space: pre-line; }
+    .hidden { display: none !important; }
+    .writing-card { margin-top: 1.4rem; padding: 1rem; border: 1px solid #bfcbd4; border-radius: 1rem; background: var(--paper); box-shadow: var(--shadow); }
+    .writing-card h2 { margin-top: 0; color: var(--navy); }
+    .writing-card img { width: 100%; height: auto; border: 1px solid var(--line); border-radius: .7rem; }
+    .result-card { margin: 1rem 0; padding: 1rem; border: 2px solid #8e78b7; border-radius: 1rem; background: var(--purple-soft); }
+    .result-card h2 { margin: 0; color: #59417f; }
+    .result-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: .6rem; margin-top: .8rem; }
+    .metric { padding: .7rem; border-radius: .75rem; background: #fff; text-align: center; }
+    .metric strong { display: block; font-size: 1.45em; color: var(--navy); }
+    dialog { max-width: min(56rem, calc(100vw - 1.5rem)); border: 0; border-radius: 1rem; box-shadow: 0 28px 80px rgba(0,0,0,.35); }
+    dialog::backdrop { background: rgba(22,29,36,.72); backdrop-filter: blur(3px); }
+    .dialog-head { display: flex; gap: .7rem; align-items: center; justify-content: space-between; margin-bottom: .8rem; }
+    .dialog-head h2 { margin: 0; color: var(--navy); }
+    .dialog-close { width: 2.6rem; height: 2.6rem; border: 1px solid #bdc9d2; border-radius: .7rem; background: #fff; font-weight: 900; }
+    .zoom-dialog { width: min(96vw, 84rem); max-width: 96vw; }
+    .zoom-toolbar { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: .6rem; }
+    .zoom-viewport { max-height: 78vh; overflow: auto; border: 1px solid var(--line); border-radius: .8rem; background: #e7ebee; }
+    .zoom-stage { position: relative; width: 100%; transform-origin: 0 0; }
+    .zoom-stage img { display: block; width: 100%; height: auto; }
+    .profile-form { display: grid; gap: .7rem; }
+    .profile-form label { font-weight: 900; color: var(--navy); }
+    .profile-form input, .profile-form select { width: 100%; min-height: 2.7rem; padding: .5rem .65rem; border: 1px solid #aebdc7; border-radius: .65rem; }
+    .cloud-note { padding: .7rem; border-radius: .7rem; color: #5b4a15; background: #fff8de; }
+    .toast {
+      position: fixed; z-index: 300; left: 50%; bottom: 1rem; transform: translate(-50%, 150%);
+      max-width: min(34rem, calc(100vw - 1rem)); padding: .75rem 1rem; border-radius: .8rem; color: #fff; background: #263f54;
+      box-shadow: var(--shadow); transition: transform .2s ease;
+    }
+    .toast.show { transform: translate(-50%, 0); }
+    @media (max-width: 980px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; max-height: none; }
+      .question-nav { grid-template-columns: repeat(10, 1fr); }
+      .sidebar-actions { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 680px) {
+      .topbar-inner { align-items: stretch; }
+      .brand { width: 100%; }
+      .tool-groups { width: 100%; }
+      .segmented, .font-tools { flex: 1 1 auto; justify-content: center; }
+      .identity-chip { width: 100%; justify-content: space-between; }
+      .tool-button, .mode-button { padding-inline: .55rem; }
+      .hero-inner { padding-top: 1.15rem; }
+      .question-nav { grid-template-columns: repeat(7, 1fr); }
+      .sidebar-actions { grid-template-columns: 1fr; }
+      .choice-analysis { grid-template-columns: 1fr; }
+      .result-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .card-head { align-items: flex-start; }
+      .word-table, .word-table tbody, .word-table tr, .word-table th, .word-table td { display: block; width: 100%; }
+      .word-table thead { display: none; }
+      .word-table tr { margin-bottom: .55rem; border: 1px solid #d8cda8; border-radius: .6rem; overflow: hidden; }
+      .word-table td { border: 0; border-bottom: 1px solid #e9dfbe; }
+      .word-table td::before { content: attr(data-label) "："; color: #594b20; font-weight: 900; }
+    }
+    @media (max-width: 430px) {
+      .question-nav { grid-template-columns: repeat(6, 1fr); }
+      .answers { gap: .38rem; }
+      .answer-button { min-height: 3rem; }
+      .font-readout { min-width: 3.2rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
+    }
+    @media print {
+      :root { --text-scale: 1 !important; }
+      body { background: #fff; }
+      .topbar, .sidebar, .zoom-button, dialog, .toast, .notice { display: none !important; }
+      .hero { color: #111; background: #fff; border-bottom: 2px solid #555; }
+      .hero p, .hero-summary { color: #222; }
+      .layout { display: block; padding: 0; }
+      .question-card, .writing-card { break-inside: avoid; box-shadow: none; }
+      .analysis-panel, .classical { display: block !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到題目</a>
+  <div id="liveRegion" class="sr-only" aria-live="polite"></div>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">12</span>
+        <span class="brand-text"><strong>國文逐題解析</strong><small>Exam-Chinese-g-12</small></span>
+      </div>
+      <div class="tool-groups" aria-label="頁面工具">
+        <div class="segmented" aria-label="切換介面">
+          <button id="analysisMode" class="mode-button" type="button" aria-pressed="true">解析介面</button>
+          <button id="quizMode" class="mode-button" type="button" aria-pressed="false">測驗介面</button>
+        </div>
+        <div class="font-tools" aria-label="字級調整">
+          <button id="fontDown" class="tool-button" type="button" aria-label="縮小字級 10%">A− 縮小字級</button>
+          <button id="fontReset" class="tool-button" type="button" aria-label="重設字級為 100%">重設 100%</button>
+          <button id="fontUp" class="tool-button" type="button" aria-label="放大字級 10%">A＋ 放大字級</button>
+          <output id="fontReadout" class="font-readout" aria-live="polite">100%</output>
+        </div>
+        <div class="identity-chip"><span id="identityLabel">訪客｜僅存本機</span><button id="openProfile" class="tool-button" type="button">學習者設定</button></div>
+      </div>
+    </div>
+  </header>
+  <section class="hero" aria-labelledby="pageTitle">
+    <div class="hero-inner">
+      <div>
+        <p class="eyebrow">116 年國中會考・翰林贏戰 3800 應用題彙編</p>
+        <h1 id="pageTitle">第 12 回｜1～6 冊（二）</h1>
+        <p>42 題完整原卷高解析截圖、正式答案、逐選項解析與文言語譯。解析介面直接展開全部內容；測驗介面只揭露已作答題目。</p>
+      </div>
+      <div class="hero-summary" aria-label="測驗進度">
+        <div class="summary-row"><span>作答進度</span><strong><span id="answeredCount">0</span>/42</strong></div>
+        <div class="progress-track" aria-hidden="true"><div id="progressFill" class="progress-fill"></div></div>
+        <div class="summary-row"><small id="correctSummary">尚未作答</small><small id="cloudStatus">雲端：未連線</small></div>
+      </div>
+    </div>
+  </section>
+  <div class="layout">
+    <aside class="sidebar" aria-label="題號導覽">
+      <h2>題號快速定位</h2>
+      <p>測驗中：綠色為答對，紅色為答錯。</p>
+      <nav id="questionNav" class="question-nav"></nav>
+      <div class="sidebar-actions">
+        <button id="submitQuiz" class="primary" type="button" disabled>全部完成後交卷</button>
+        <button id="wrongOnly" class="secondary" type="button" aria-pressed="false">只看錯題</button>
+        <button id="restartQuiz" class="danger" type="button">重新開始全部</button>
+      </div>
+    </aside>
+    <main id="main" class="content" tabindex="-1">
+      <div class="notice">題目圖片完整保留原卷內容，不加任何黃色重點標示。點「放大題目」可閱讀原圖細節。</div>
+      <div id="resultCard" class="result-card hidden"></div>
+      <section aria-labelledby="singleHeading">
+        <div class="section-heading"><h2 id="singleHeading">一、單題（第 1～24 題）</h2><p>字音字形、詞語、閱讀、圖表與國學常識</p></div>
+        <div id="singleQuestions"></div>
+      </section>
+      <section aria-labelledby="groupHeading">
+        <div class="section-heading"><h2 id="groupHeading">二、題組（第 25～42 題）</h2><p>白話文、圖表、新詩、文言文與跨文本閱讀</p></div>
+        <div id="groupQuestions"></div>
+      </section>
+      <section id="writingSection" class="writing-card" aria-labelledby="writingHeading">
+        <h2 id="writingHeading">寫作加練（不計分）</h2>
+        <p>原卷第 17 頁寫作測驗完整保留，供解析介面延伸練習。</p>
+        <div class="image-shell">
+          <img src="assets/questions/writing-practice.png" alt="第12回寫作測驗原卷" loading="lazy" decoding="async">
+          <button class="zoom-button" type="button" data-writing-zoom>放大題目</button>
+        </div>
+      </section>
+    </main>
+  </div>
+  <dialog id="zoomDialog" class="zoom-dialog" aria-labelledby="zoomTitle">
+    <div class="dialog-head"><h2 id="zoomTitle">放大題目</h2><button class="dialog-close" type="button" data-close-dialog aria-label="關閉放大檢視">×</button></div>
+    <div class="zoom-toolbar">
+      <button id="zoomOut" class="secondary" type="button">－ 縮小</button>
+      <button id="zoomReset" class="secondary" type="button">重設</button>
+      <button id="zoomIn" class="secondary" type="button">＋ 放大</button>
+      <output id="zoomReadout" class="font-readout">100%</output>
+    </div>
+    <div id="zoomViewport" class="zoom-viewport"><div id="zoomStage" class="zoom-stage"></div></div>
+  </dialog>
+  <dialog id="profileDialog" aria-labelledby="profileTitle">
+    <div class="dialog-head"><h2 id="profileTitle">學習者設定</h2><button class="dialog-close" type="button" data-close-dialog aria-label="關閉學習者設定">×</button></div>
+    <p class="cloud-note">暱稱是共享資料，不是私人帳號；任何可開啟頁面的人都可能看見。請勿填寫真實姓名或個資。訪客進度只存在這台裝置。</p>
+    <form id="profileForm" class="profile-form">
+      <label for="nickname">暱稱</label><input id="nickname" maxlength="40" autocomplete="nickname" placeholder="例如：國文小樹苗">
+      <label for="avatar">頭像</label><select id="avatar"><option value="owl">🦉 貓頭鷹</option><option value="fox">🦊 小狐狸</option><option value="rabbit">🐰 小兔子</option><option value="bear">🐻 小熊</option></select>
+      <button class="primary" type="submit">建立／選擇這位學習者</button>
+      <button id="useGuest" class="secondary" type="button">切換為訪客</button>
+      <button id="reconnectCloud" class="secondary" type="button">重新連線雲端</button>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script>
+    "use strict";
+    const COLLECTION_NAME = "Exam-Chinese-g-12";
+    const DOC_GLOBAL = "global";
+    const ARTICLE_TITLE = "第12回 1～6冊（二）";
+    const QUESTION_BANK_VERSION = "2026.11.12-content-v1";
+    const QUESTIONS = [
+      {n:1,c:"B",skill:"白話文觀點理解",focus:"抓住作者主張：工具不是重點，敢於表達並溝通才是核心。",hl:[[38,43,12,7]],ex:{A:"文章沒有主張必須先充分練習，這是額外加入的條件。",B:"作者強調不要因怕拼字、文法錯誤而不敢開口，重點正是勇於表達的自信。",C:"文中未說背誦拼字、文法是多數學生的夢魘。",D:"文章沒有提出由淺入深、逐步精熟的學習順序。"}},
+      {n:2,c:"C",skill:"字音判讀",focus:"把受考字放回詞語中讀，避免只憑字形猜音。",hl:[[37,5,15,12]],ex:{A:"「兌換券」的「券」有固定讀音，題示注音不符。",B:"「巷弄」中的「弄」須依詞語讀音判斷，題示讀音不合。",C:"「賄賂」的「賂」讀音標示正確。",D:"「烘焙坊」的「坊」應依「店鋪」義讀音，題示讀音不合。"}},
+      {n:3,c:"D",skill:"詞語使用",focus:"同時核對字形、詞義和語境搭配。",hl:[[42,6,15,12]],ex:{A:"「精闢」用來形容見解深刻，不適合直接形容家電機器人；此處宜用「精良」。",B:"「把持」有獨占控制之意；遵守原則應用「秉持」。",C:"受傷後精神狀態應為「錯亂」；親友驚訝才是「錯愕」，兩詞位置不當。",D:"「屏除」是一概排除，「屏棄」是捨棄不用，兩處搭配都恰當。"}},
+      {n:4,c:"B",skill:"貼文情境理解",focus:"先分清發文者阿凱與三位留言者的立場。",hl:[[30,4,12,6]],ex:{A:"貼文只說阿凱後悔，無法據此得知傷神的具體原因。",B:"阿文直接提醒「如果你再不改變」，可知他認為阿凱需要改變。",C:"小梅的留言偏向消極安慰，不能說是樂觀態度。",D:"阿揚質疑的是阿凱反覆犯錯，不是懷疑他悔過的動機。"}},
+      {n:5,c:"B",skill:"文章推論",focus:"區分文章明說、合理推論與無中生有。",hl:[[43,60,12,5]],ex:{A:"文章提到早期曾有軍用機場，沒有說目前仍存在或可供參觀。",B:"文中說夜市保留庶民生活美味並呈現「家常味」，可合理推得。",C:"只說因節目瞬間爆紅，未說最後成為全臺夜市冠軍。",D:"文中稱它在眾多國際觀光夜市中脫穎而出，原因是庶民特色，不是以異國美食聞名。"}},
+      {n:6,c:"B",skill:"文言文觀點",focus:"由「終身之計，莫如樹人」判斷全文核心。",hl:[[40,45,18,7]],t:"g6",ex:{A:"文段談的是培育人才，不是農業為國家根本。",B:"由一年樹穀、十年樹木、終身樹人的比較，可知長治久安最重人才培育。",C:"「王之門」表示人才可供君王任用，不是要求崇拜神明。",D:"「如神用之」是形容任用得當的效果，不是靠宗教力量育才。"}},
+      {n:7,c:"C",skill:"文言敘事理解",focus:"留意作者由猜疑到看見貓後的心理變化。",hl:[[42,41,13,6]],ex:{A:"作者沒有追打老鼠，文中只寫正憂心物品被破壞。",B:"貓搖尾是注視老鼠、準備捕捉，不是在討好主人。",C:"作者正憂慮老鼠破壞物品，忽見貓後暫時從苦惱中抽離，符合文意。",D:"文中沒有說貓追逐時撞翻書架。"}},
+      {n:8,c:"C",skill:"圖文方位推論",focus:"先依東、南、西、北，再對應四象。",hl:[[41,61,12,4]],ex:{A:"順序把玄武、青龍等方位對應混淆。",B:"排列的起點與東方青龍不符。",C:"乙是青龍（東）、丁是朱雀（南）、丙是白虎（西）、甲是玄武（北），順序正確。",D:"丁為南方朱雀，不應排在東方起點。"}},
+      {n:9,c:"A",skill:"詩句季節判讀",focus:"從意象辨認季節，不只看表面景物。",hl:[[45,39,12,6]],ex:{A:"「東風」與「春」的花香都是春季線索，配對正確。",B:"丹楓滿山是秋景，不是夏季。",C:"朔風、寒雁是冬景，不是秋季。",D:"亂花、淺草是早春景象，不是冬季。"}},
+      {n:10,c:"A",skill:"對聯規則",focus:"依上、下聯末字平仄與語意配對。",hl:[[22,7,20,7]],ex:{A:"語意可與甲聯配成玩具店對聯，且末字「心」為平聲，適合作下聯乙。",B:"語意與玩具店情境較弱，平仄也不合此位置。",C:"雖談巧思，但末字與上下聯的平仄安排不合。",D:"句意偏一般勸學，不能和甲聯形成工整對應。"}},
+      {n:11,c:"B",skill:"柬帖用語",focus:"核對邀請對象、敬謙稱與場合。",hl:[[46,56,10,6]],ex:{A:"「小兒」是對自己兒子的謙稱，使用正確，不必改成「令郎」。",B:"「洗塵」用於迎接遠來或歸來者；宴請應改用「餞行」，因此本項指出的修改正確。",C:"「菲酌」是對自己酒席的謙稱，請帖中可以使用。",D:"「謹稟」與「叩首」在此都有相應敬謙功能，不能任意互換。"}},
+      {n:12,c:"C",skill:"成語運用",focus:"不要只看字面，要核對成語的固定意義。",hl:[[40,7,14,10]],ex:{A:"「釜底抽薪」是從根本解決問題，不等於抱持必勝決心。",B:"「明日黃花」比喻過時事物，不用來形容榮華富貴。",C:"「嶄露頭角」指才華顯露，與在職場展現長才相合。",D:"「心無旁騖」指專心一致，不能形容一直想買新手機。"}},
+      {n:13,c:"C",skill:"作者觀點理解",focus:"題目問「最不符合」，要保留否定方向。",hl:[[48,79,15,5]],ex:{A:"文章認為開發中國家為經濟與民生增加能源使用，減碳非優先目標。",B:"文中明說歐美等已開發國家人均能源使用量大，較有減碳空間。",C:"只由「排放為二十五年前一倍」不能推出過去二十五年毫無努力，這是過度推論。",D:"作者以「遙不可及」與反問指出 2050 淨零目標目前非常困難。"}},
+      {n:14,c:"C",skill:"圖表判讀",focus:"只用圖表提供的數據推論，不能補入未呈現資料。",hl:[[45,66,14,4]],ex:{A:"全球糧食約三分之一被浪費，總量約 39 億噸，換算約 13 億噸，推論合理。",B:"圖表直接給出臺灣總損耗與每人每年平均量，敘述相符。",C:"圖中只列米糧、蔬菜、水果、肉類、魚類與其他，無法判斷乳製品浪費情形。",D:"圖表明示臺灣廚餘量為東南亞國家的八倍以上，推論相符。"}},
+      {n:15,c:"A",skill:"文句重組",focus:"先接語意，再檢查標點和轉折。",hl:[[52,8,13,6]],ex:{A:"依序為乙、丙、甲、丁：清閒時雖粗衣淡食而有真趣；紛擾時雖錦衣厚味卻滿懷愁苦，語意與標點都順。",B:"把轉折句接在錯誤位置，前後語意不連貫。",C:"「雖……」與後面的結果句配對錯置。",D:"兩組生活狀態與感受未正確成對。"}},
+      {n:16,c:"B",skill:"同音字字形",focus:"把注音還原成國字，逐組比較是否完全相同。",hl:[[47,5,20,7]],ex:{A:"應分別為「爛」西裝與「濫」調，字形不同。",B:"兩處都是「究」：研究、追究，字形完全相同。",C:"分別為「遷」徙與「牽」夢縈，字形不同。",D:"分別為震「撼」與遺「憾」，字形不同。"}},
+      {n:17,c:"B",skill:"白話文意象",focus:"由雪景與水壺振動連到人物當下心理。",hl:[[46,61,15,5]],ex:{A:"兩個景物的節奏並不強烈，也未象徵沉重折磨。",B:"視線由父親的現實壓力轉向窗外白雪與水壺振動，形成視覺與思緒的轉移，暫時抽離苦難。",C:"白雪只是眼前景物，不能直接等同童年純淨消失。",D:"水壺蓋振動不是因水遲遲燒不開，也沒有暗指時間過慢。"}},
+      {n:18,c:"C",skill:"文言寫作手法",focus:"理解「耳可得聞，口不可得言」的對比作用。",hl:[[47,7,17,7]],t:"g18",ex:{A:"作者是在勸告說話謹慎，不是要求孩子避免聽父母姓名。",B:"「吾所大惡」統攝的是聽見別人過失就議論，不是對災福心態下判斷。",C:"能聽見而不可隨意說出，正凸顯聽聞過失後謹慎發言的重要。",D:"此對比不是抱怨難諫長輩，而是提醒不要妄加評論。"}},
+      {n:19,c:"A",skill:"古典韻文理解",focus:"結尾「不測人間笑是瞋」指出人心難測。",hl:[[43,43,18,6]],t:"g19",ex:{A:"既然人心難以預測，處世就應謹慎，不可只憑片面言語全盤相信。",B:"詩中正提醒人心難測，不能推成真誠待人必然得讚佑。",C:"沒有教人只顧自己、掃門前雪。",D:"詩意不是要求一味埋頭做事，而是警戒辨人之難。"}},
+      {n:20,c:"A",skill:"篆刻與書法",focus:"同時判斷字體和陽刻白底效果。",hl:[[36,43,18,5]],ex:{A:"字體為篆書；陽刻保留字的筆畫，印出後字為紅、紙底為白，圖示相符。",B:"雖是篆書，但陰刻會呈白字紅底，與題目要求不合。",C:"字體不是隸書。",D:"字體不是楷書，且陰刻效果也與題意不同。"}},
+      {n:21,c:"C",skill:"一字多義",focus:"先把「苟」翻成句中意思，再找同義用法。",hl:[[52,10,18,12]],t:"g21",ex:{A:"「一絲不苟」的「苟」是草率、隨便。",B:"「苟延殘喘」的「苟」是勉強、姑且。",C:"「苟若有之」的「苟」是如果，與「苟志於仁」相同。",D:"「因循苟且」的「苟」是馬虎、只顧眼前。"}},
+      {n:22,c:"B",skill:"文言敘事理解",focus:"比較商鞅與吳起的做法及前後關係。",hl:[[46,64,13,5]],t:"g22",ex:{A:"篇章先寫商鞅再追述吳起，不代表歷史時代也是商鞅在前。",B:"商鞅立木取信的做法仿效吳起，以重賞建立百姓信任，最符合文意。",C:"兩人都以行動取信於民，但此項忽略文章強調的模仿關係。",D:"篇章不是用對比凸顯商鞅更高明，而是指出其做法有所本。"}},
+      {n:23,c:"A",skill:"古典詩與新詩比較",focus:"找兩首詩共同運用的材料，而非只看形式差異。",hl:[[50,72,14,5]],t:"g23",ex:{A:"甲借楊貴妃吃荔枝的史實，乙也連結歷史與產地，兩詩都以史實豐富主題形象。",B:"只有乙清楚列出嶺外、旗山等產地，甲沒有。",C:"甲的「一騎紅塵」沒有明確點出季節，不能說兩詩都清楚寫季節。",D:"乙不以貧富差距為主；甲也沒有正面分析階級問題。"}},
+      {n:24,c:"B",skill:"古文醫理推論",focus:"把傷口位置、器具痕跡與推論一一對照。",hl:[[48,56,14,6]],ex:{A:"一刀斃命不代表手部傷勢最嚴重；手傷主要來自阻擋。",B:"頭髮像被刀剪過，說明刀刃接觸頭部，頭皮可能受傷，推論合理。",C:"若被害人以手抵擋，手會受傷；護者背部也可能有傷，不能說只有背部。",D:"頭蓋骨骨折要按壓檢查，不是以手維持頭部完整。"}},
+      {n:25,c:"B",skill:"白話文因果理解",focus:"題幹要找亞里斯多德得出結論的主要原因。",hl:[[52,85.4,16,3.1]],ex:{A:"文中沒有說出生聾兒被視為不祥而自生自滅。",B:"古希臘教育靠聲音傳遞，文字又是拼音文字，因此無法說話者被誤認為無法受教。",C:"這只是錯誤結論本身，不是形成結論的原因。",D:"文中未說十六世紀前聾啞人士不能進修道院。"}},
+      {n:26,c:"D",skill:"文章主旨",focus:"用全文事件發展檢驗哪個選項能統攝。",hl:[[46,86.4,10,3.1]],ex:{A:"文章不是單純批判亞里斯多德，而是追蹤迷思如何被突破。",B:"文藝復興時期不是所有聾啞人士都已有受教權。",C:"手語不是對古希臘教育方式的影響，而是修道院中另行發展的溝通方法。",D:"手語與修士的教學成果推翻了聾啞人士無法受教育的迷思，能統攝全文。"}},
+      {n:27,c:"D",skill:"文章寫作方法",focus:"辨認作者如何用時代對照推進觀點。",hl:[[48,86.8,16,2]],ex:{A:"文中沒有列舉數名學者來強調普遍歧視。",B:"西班牙貴族孩子的例子證明聾童可學習，不是說只有貴族能受教。",C:"修士先教聾童，不能推成一般人也用同一方法學會既有知識。",D:"文章對照古希臘的成見與文藝復興時期的突破，肯定後者的才智與勇氣。"}},
+      {n:28,c:"A",skill:"生態文章理解",focus:"以棲地條件、數量與遷徙行為逐項核對。",hl:[[51,81.4,13,3.2]],ex:{A:"文中明說紫斑蝶在有蜜源植物、地形足以避風的山谷越冬，正確。",B:"臺灣數量雖少於墨西哥，但種類混雜，不能說蝶種也略遜一籌。",C:"紫斑蝶以成蟲越冬，未說下一代在棲地孵化成蟲。",D:"牠們循固定路線遷徙，不是隨時調整北返路線。"}},
+      {n:29,c:"B",skill:"地圖路線推論",focus:"冬季南下、春季北返，並分東西兩條路線。",hl:[[49,71.5,15,4.2]],ex:{A:"箭頭方向沒有完整呈現冬季南下、春季北返。",B:"冬季由北向南，春季再分東、西兩路北返，與文章相符。",C:"西部路線箭頭方向顛倒。",D:"東、西兩側的往返方向配置不合文章。"}},
+      {n:30,c:"C",skill:"地球超載文章理解",focus:"找文章明確支持的因果，不可擴大。",hl:[[53,82.1,13,2.7]],ex:{A:"文章說城市、國家、企業應加強資源安全，未說只有共同經濟發展才能抑制浪費。",B:"文中提出多種可逆轉方法，不能說地球超載不可逆。",C:"若超載持續會帶來極端熱浪與糧食生產威脅，能反映資源過度耗用，正確。",D:"文中列加拿大為消耗較快國家之一，沒有比較其嚴重程度一定高於卡達。"}},
+      {n:31,c:"A",skill:"資料關係圖",focus:"把文字中的增減方向轉成坐標關係。",hl:[[51,62,14,3.2]],ex:{A:"低碳電力占比由 39% 增至 75%，超載日可推遲 26 天，兩者呈正相關，圖形正確。",B:"文中沒有把全球經濟發展與食物浪費畫成線性負相關。",C:"森林間植範圍增加只說可延後天數，不能推出糧食生產先升後降。",D:"超載趨勢逐漸放緩不等於與碳排呈 U 形關係。"}},
+      {n:32,c:"A",skill:"文章圖示功能",focus:"圖示要服務全文概念，不是單純裝飾。",hl:[[48,84.7,17,3.1]],ex:{A:"人生三角形呈現外在自我、內在自我與他人之間的連鎖互動，幫助理解人際行為循環。",B:"文章不只談父母，也談學校與一般霸凌關係。",C:"圖示重在解釋概念，不是為吸引心理學閱讀興趣。",D:"文章強調先珍惜自己再尊重他人，不是比較哪一項永遠更重要。"}},
+      {n:33,c:"C",skill:"理論情境套用",focus:"判斷外在自我承受壓力後，是否轉向較弱者。",hl:[[46,84.8,20,2.2]],ex:{A:"媽媽催促孩子是直接親子衝突，未呈現受壓後轉向較弱者的三角鏈。",B:"阿明因疲累隔天不上班，沒有把壓力轉移給他人。",C:"大雄被外人說膽小而不敢反駁，回家把情緒發洩在溫柔的媽媽身上，完全符合連鎖反應。",D:"小靜把負面情緒放在自己身上，缺少對另一弱者的轉移。"}},
+      {n:34,c:"A",skill:"文章主旨",focus:"從結尾勸告回推作者主要寫作目的。",hl:[[51,90.4,14,3.1]],ex:{A:"結尾勸孩子先肯定、珍惜自己，再替他人著想，主要目的正是鼓勵建立自尊。",B:"文章借人際關係說明心理循環，但不是專門追究問題形成原因。",C:"文中不只解釋受害者變加害者，也提出中止循環的方法。",D:"成長環境只是例子，並非全文主要目的。"}},
+      {n:35,c:"D",skill:"白話文細節判讀",focus:"題目問「最不恰當」，逐一回到雙畫線句取證。",hl:[[51,90.7,16,2.4]],ex:{A:"甲說老兵在異地只能與理想相去甚遠的人為伴，婚姻帶有無可奈何。",B:"乙說少數無原住民血統居民掌握經濟流向、經營店面服務在地人。",C:"丙顯示同學眼中的阿寞像富家少爺，老呂也確實疼愛他。",D:"丁只說父子相差三十歲，不能推成老呂「年老時」才生下阿寞，因此最不恰當。"}},
+      {n:36,c:"D",skill:"句意理解",focus:"找出「災情」在上下文中的具體影響。",hl:[[44,82.6,14,3.1]],ex:{A:"文中沒有比較營業額與颱風強度的比例。",B:"不是只要颱風就一定停業；題句談的是阿寞家未營業時的後果。",C:"文章沒有說是否營業和颱風過境存在直接因果。",D:"雜貨店若沒營業，居民會吃不到蛋、沒有油炒菜，甚至缺手電筒照明，生活大受影響。"}},
+      {n:37,c:"D",skill:"文本與地圖順序",focus:"依「第零關→第一關→第二關」逐點還原。",hl:[[48,68.6,17,4.2]],ex:{A:"把第一關與第二關前後順序顛倒。",B:"從源頭出發，Yayung Qeycing 不會排在第零關後。",C:"第一關不是源頭，Yayung Qeycing 的位置錯誤。",D:"第零關在清水橋下；往上游是公墓和納骨塔前的第一關；最後回到源頭 Yayung Qeycing，正確。"}},
+      {n:38,c:"B",skill:"譬喻脈絡",focus:"先找天氣穩定與不穩定兩種水流特性。",hl:[[51,83,13,2.8]],ex:{A:"晶瑩水珠與狂怒閃電沒有對應文中的柔順與失控。",B:"天氣穩定時水流輕薄柔順，像海帶；不穩定時亂竄咬管，像暴衝的狗，最貼切。",C:"柔情女子與戰士偏重人物性格，沒有水流形態的具體對應。",D:"凝固水泥與雄獅都太強硬，無法表現穩定時的柔順。"}},
+      {n:39,c:"A",skill:"跨文本共同內容",focus:"比較兩文直接寫出的景物，不把評價當描寫。",hl:[[49,91.3,16,3.3]],t:"g39",ex:{A:"甲直接描寫蘇堤的自然景致，乙直接寫湧金門、湖心亭、冷泉亭等西湖勝跡，兩文都有。",B:"只有甲提到微雨，乙未直接描寫雨景。",C:"甲談蘇堤的自然與文化價值，乙著重遊湖與勝景，不能說兩文都直接描寫築堤價值。",D:"兩文沒有共同直接描寫世人評價。"}},
+      {n:40,c:"B",skill:"跨文本判讀",focus:"把甲、乙各自的評語與畫線內容分開核對。",hl:[[49,84,14,3.4]],t:"g39",ex:{A:"甲明說白居易、蘇軾修堤不是為風雅，也不以文化為目的，此敘述相反。",B:"乙以「白樂天謂冷泉一亭，最餘杭，而甲靈隱」及「九溪十八澗乃西湖最勝處」點出最佳景點，正確。",C:"兩文都寫西湖之美，但沒有一概推到人性善良。",D:"甲、乙都不是以抒發內心懷世情懷為主。"}},
+      {n:41,c:"C",skill:"文言論證比較",focus:"核對三人的「位置—根據—結果」是否吻合原文。",hl:[[51,61.9,16,4.2]],t:"g41",ex:{A:"寺僧在石獸落水處尋找而不可得，與原文相符。",B:"寺僧順流往下游找了十餘里仍無蹤，與原文相符。",C:"講學家的根據應是「石重沙鬆」，選項寫成「沙重石輕」，關鍵顛倒，最不貼近。",D:"老河兵認為石獸會逆流到上游，並果然在數里外尋得，與原文相符。"}},
+      {n:42,c:"C",skill:"文言文意理解",focus:"抓住老河兵所說的水流沖沙機制。",hl:[[62,39.5,31,5]],t:"g41",ex:{A:"寺中僧人是向講學者請教，文中未說他們嘲笑其自恃博學。",B:"老河兵只依治河經驗分析此事，沒有宣稱天下萬物都有共同規律。",C:"水在石頭迎水處沖刷沙子形成坑穴，坑愈深，石頭便倒入並反覆翻轉，敘述正確。",D:"故事重點是不可只憑片面道理主觀判斷，不是以誇張說理或把尋找過程寫得層次清晰。"}}
+    ];
+    const TRANSLATIONS = {
+      g6:{title:"《管子・權修》節錄",words:[["樹穀","種植穀物","「樹」作動詞，種植"],["樹木","栽種樹木","同上"],["樹人","培育人才","比喻長期教育"],["一穫","一次收穫","穫，收穫"],["神用之","神妙地任用人才","不是指宗教神力"]],text:"一年的計畫，沒有比種穀物更合適的；十年的計畫，沒有比種樹更合適的；終身的計畫，沒有比培育人才更合適的。種一次就有一次收穫的是穀物；種一次而有十次收穫的是樹木；培育一次而能有百倍收穫的是人才。我如果培育人才，能神妙地任用他們，使他們成就事業，這才是君王治理的根本。"},
+      g18:{title:"告誡慎言的文言句",words:[["涉譽","談論、品評","涉，涉及"],["聞人過失","聽見別人的過錯","聞，聽到"],["耳可得聞","耳朵可以聽見","得，可以"],["口不可得言","嘴巴不可以隨意說出","言，談論"],["好議論人長短","喜歡評論別人是非","長短，優缺點"]],text:"我希望你們聽見別人的過失，就像聽見父母的名字一樣：耳朵可以聽到，嘴巴卻不可以隨意談論。喜歡議論別人的優缺點，隨便評論是非，都是我最厭惡的事。"},
+      g19:{title:"白居易〈天可度〉節錄",words:[["天可度，地可量","天地尚可測量","度、量，測量"],["人心不可防","人心難以預料防備","防，預防"],["丹誠","赤誠、真心","丹，比喻真誠"],["偽言巧似簧","假話像笙簧般動聽","簧，樂器簧片"],["笑是瞋","笑容其實可能是憤怒或惡意","瞋，發怒"]],text:"天可以測度，地可以丈量，只有人心難以防備。看見像鮮血般赤誠的樣子，誰知道其中可能是巧妙的假話。有人勸你做官、拆散夫妻；有人勸你讓父子相爭、朋友互鬥。海底的魚、天上的鳥尚可想辦法取得，只有人心面對時，短時間內無法預料。你沒看見那像花朵般欣欣而笑的李義府嗎？他的笑容裡藏著刀，暗中害人。陰陽變化可以推測，唯獨人的笑容到底真誠還是憤怒，難以預料。"},
+      g21:{title:"《論語・里仁》句譯",words:[["苟","如果","表假設"],["志於仁","立志行仁","志，立志"],["無惡也","就不會做壞事","惡，壞事"]],text:"如果立志實行仁德，就不會做出壞事。"},
+      g22:{title:"洪邁《容齋隨筆》節錄",words:[["徙木予五十金","搬木頭就給五十金","徙，搬移"],["欲諭其信於民","想讓百姓明白他守信","諭，使明白"],["債表","放倒的標竿","依原卷注釋"],["償表者","把標竿放倒的人","償，此處承原卷用字"],["不傳","沒有流傳下來","傳，流傳"]],text:"商鞅改革秦國法令，擔心百姓不信任，就招募百姓把三丈長的木頭搬走，賞五十金。有一個人搬了木頭，商鞅立即下令給賞。吳起治理西河時，想取得百姓信任，晚上在南門外立下一根標竿，在城中命令說：「誰能把這根標竿放倒，我就任用他做長大夫。」百姓議論紛紛，都說：「試著放倒標竿，最多得不到獎賞，自己又有什麼損失？」於是有人放倒標竿後拜見吳起，吳起果然任命他為長大夫。從此百姓相信吳起能賞罰分明。商鞅本是魏國人，他用搬木頭表示自己很守信，這大概是在仿效吳起，只是吳起這件事沒有流傳下來。"},
+      g23:{title:"杜牧〈過華清宮絕句〉",words:[["長安回望","從長安方向回頭眺望","點出視角"],["繡成堆","山景像錦繡堆疊","比喻"],["次第開","依次打開","次第，依序"],["一騎紅塵","快馬揚起紅色塵土","騎，騎馬送荔枝的人"]],text:"從長安回望驪山，景色像一堆堆錦繡；山頂上一重重宮門依序打開。一匹快馬揚起紅塵，楊貴妃看見後露出笑容，卻沒有人知道那是送荔枝來的。"},
+      g39:{title:"俞樾〈九溪十八澗〉節錄",words:[["凡至杭州者","凡是到杭州的人","凡，凡是"],["無不知遊西湖","沒有不知道要遊西湖的","雙重否定"],["日加午矣","時間已過正午","加，超過"],["略一瞻眺","稍微眺望一下","略，稍微"],["卒未克一遊","終究未能去遊覽","卒，終於；克，能"]],text:"凡是來到杭州的人，沒有不知道要遊西湖的。然而在城中遊覽的人，從湧金門出發時，時間已過正午。到三潭印月、湖心亭稍坐，再到岳王墳、林處士祠稍微眺望，天色就已昏暗，僕人便催促回去。城中人還說：「今天遊湖真快樂。」其實，像湖舫雅集那樣的稱作遊湖還勉強可以，一般人的走法根本算不上真正遊湖。西湖最好的地方不在湖面，而在山中。白居易稱冷泉亭為餘杭最好的地方，而我認為九溪十八澗才是西湖最好的地方，尤其勝過冷泉。只是我已年老，聽說理安寺僧人常說那裡多麼美，心裡很嚮往，卻始終沒有親自去遊覽。"},
+      g41:{title:"紀昀〈河中石獸〉",words:[["圮於河","倒塌在河裡","圮，倒塌"],["棹數小舟","划著幾艘小船","棹，划船"],["設帳","設立學塾教學","依原卷注釋"],["湮於沙上","沉沒在沙中","湮，埋沒"],["齧沙為坎穴","沖刷沙子形成坑穴","齧，咬，引申沖刷"],["據理臆斷","依片面道理主觀判斷","臆，主觀猜測"]],text:"滄州南面有一座寺廟靠近河岸，寺廟大門倒塌在河裡，門旁兩隻石獸一起沉入河中。過了十多年，僧人募集金錢重修寺廟，便在河中尋找石獸，最後仍找不到，以為石獸順流而下。於是划著幾艘小船，拖著鐵鈀，找了十多里仍無蹤影。\n一位在寺中設塾教學的講學者聽見後笑說：「你們不能推究事物的道理。石獸不是木片，怎會被暴漲洪水帶走？石頭堅硬沉重，沙鬆散浮動，石獸沉在沙裡，愈沉愈深。順著河去找，不是很荒唐嗎？」眾人信服，認為這是正確結論。\n一位年老的河兵聽見後又笑說：「凡是落入河中的石頭，都應到河的上游尋找。正因石頭堅硬沉重、沙鬆散浮動，水流不能沖走石頭，反衝力量一定在石頭下方迎水處沖刷沙子形成坑穴。愈沖愈深，到石頭一半時，石頭必定倒進坑裡；再沖刷，石頭又再翻轉。如此不停翻轉，反而會逆流往上游。到下游尋找固然荒唐，在原地尋找不也荒唐嗎？」依他的話去找，果然在上游幾里外找到了。\n天下事只知道其中一個道理、卻不了解其他情況的很多，怎能只根據自己所知的道理主觀判斷呢？"}
+    };
+    const LETTERS = ["A","B","C","D"];
+    const FONT_KEY = `${COLLECTION_NAME}:fontScale`;
+    const MODE_KEY = `${COLLECTION_NAME}:mode`;
+    const IDENTITY_KEY = `${COLLECTION_NAME}:activeIdentity`;
+    const firebaseConfig = {
+      apiKey: "AIzaSyCan2_Rc26HsLkOPr0i5QrgdjAYyqcigJ0",
+      authDomain: "english-reading-6b506.firebaseapp.com",
+      projectId: "english-reading-6b506",
+      storageBucket: "english-reading-6b506.firebasestorage.app",
+      messagingSenderId: "494747176273",
+      appId: "1:494747176273:web:585487fadb29b2e5e2d770",
+      measurementId: "G-4JD6R9MRPQ"
+    };
+
+    const $ = selector => document.querySelector(selector);
+    const identity = JSON.parse(localStorage.getItem(IDENTITY_KEY) || "null") || {id:"guest",nickname:"訪客",avatar:"owl"};
+    let activeIdentity = identity;
+    let mode = localStorage.getItem(MODE_KEY) === "quiz" ? "quiz" : "analysis";
+    let fontScale = Number(localStorage.getItem(FONT_KEY)) || 100;
+    if (!Number.isFinite(fontScale) || fontScale < 80 || fontScale > 160 || fontScale % 10) fontScale = 100;
+    let wrongOnly = false;
+    let zoomScale = 1;
+    let toastTimer;
+    let cloud = {status:"idle", db:null, auth:null, api:null, promise:null};
+
+    function stateKey(id = activeIdentity.id) { return `${COLLECTION_NAME}:state:${id}`; }
+    function freshState() {
+      return {generation:1,revision:0,answers:{},submitted:false,attemptId:crypto.randomUUID(),startedAt:new Date().toISOString(),history:[]};
+    }
+    function readState() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(stateKey()) || "null");
+        if (!parsed || typeof parsed !== "object" || typeof parsed.answers !== "object") return freshState();
+        return {...freshState(),...parsed,answers:{...parsed.answers},history:Array.isArray(parsed.history) ? parsed.history : []};
+      } catch { return freshState(); }
+    }
+    let state = readState();
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>'"]/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[char]));
+    }
+    function toast(message) {
+      const node = $("#toast");
+      node.textContent = message;
+      node.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => node.classList.remove("show"), 2600);
+    }
+    function announce(message) { $("#liveRegion").textContent = ""; requestAnimationFrame(() => $("#liveRegion").textContent = message); }
+    function cloudText(text) { $("#cloudStatus").textContent = `雲端：${text}`; }
+    function saveState({sync=true} = {}) {
+      localStorage.setItem(stateKey(), JSON.stringify(state));
+      if (sync && activeIdentity.id !== "guest") queueCloudProgress();
+    }
+
+    function renderTranslation(key) {
+      const item = TRANSLATIONS[key];
+      if (!item) return "";
+      const rows = item.words.map(row => `<tr><td data-label="原文字詞">${escapeHTML(row[0])}</td><td data-label="本句字義／詞義">${escapeHTML(row[1])}</td><td data-label="文言現象或補充">${escapeHTML(row[2])}</td></tr>`).join("");
+      return `<section class="classical hidden" data-translation="${key}" aria-hidden="true"><h4>📜 文言文翻譯｜${escapeHTML(item.title)}</h4><table class="word-table"><thead><tr><th>原文字詞</th><th>本句字義／詞義</th><th>文言現象或補充</th></tr></thead><tbody>${rows}</tbody></table><h4>🧾 完整語譯</h4><p class="translation">${escapeHTML(item.text)}</p></section>`;
+    }
+    function renderQuestion(q) {
+      const image = `assets/questions/q${String(q.n).padStart(2,"0")}.png`;
+      const choices = LETTERS.map(letter => `<button class="answer-button" type="button" data-answer="${letter}" aria-label="第 ${q.n} 題選擇 ${letter}">${letter}</button>`).join("");
+      const analyses = LETTERS.map(letter => `<article class="choice-card ${letter === q.c ? "correct" : "wrong"}"><div class="choice-label"><span>${letter}</span><span>${letter === q.c ? "✅ 正確答案" : "❌ 錯誤選項"}</span></div><p>${escapeHTML(q.ex[letter])}</p></article>`).join("");
+      return `<article id="q${q.n}" class="question-card" data-question="${q.n}" data-correct="${q.c}">
+        <header class="card-head"><div class="q-title"><span class="q-badge">Q${q.n}</span><div><h3>${escapeHTML(q.skill)}</h3><small data-focus>${escapeHTML(q.focus)}</small></div></div><span class="status-pill" data-status>未作答</span></header>
+        <div class="question-body"><div class="image-shell"><img class="question-image" src="${image}" alt="第 ${q.n} 題原卷：題幹與 A、B、C、D 全部選項" loading="${q.n <= 2 ? "eager" : "lazy"}" decoding="async"><button class="zoom-button" type="button" data-zoom="${q.n}">放大題目</button></div>
+        <div class="answers" aria-label="第 ${q.n} 題作答選項">${choices}</div><div class="feedback hidden" data-feedback aria-hidden="true"></div>
+        <section class="analysis-panel hidden" data-analysis aria-hidden="true"><h4>🔠 A、B、C、D 選項解析</h4><div class="choice-analysis">${analyses}</div></section>${q.t ? renderTranslation(q.t) : ""}</div>
+      </article>`;
+    }
+    function renderAll() {
+      $("#singleQuestions").innerHTML = QUESTIONS.filter(q => q.n <= 24).map(renderQuestion).join("");
+      $("#groupQuestions").innerHTML = QUESTIONS.filter(q => q.n >= 25).map(renderQuestion).join("");
+      $("#questionNav").innerHTML = QUESTIONS.map(q => `<button class="nav-q" type="button" data-nav="${q.n}" aria-label="前往第 ${q.n} 題">${q.n}</button>`).join("");
+      document.querySelectorAll("[data-answer]").forEach(button => button.addEventListener("click", answerQuestion));
+      document.querySelectorAll("[data-zoom]").forEach(button => button.addEventListener("click", () => openZoom(Number(button.dataset.zoom))));
+      document.querySelectorAll("[data-nav]").forEach(button => button.addEventListener("click", () => focusQuestion(Number(button.dataset.nav))));
+      $("[data-writing-zoom]").addEventListener("click", () => openWritingZoom());
+      setupObserver();
+    }
+    function answerQuestion(event) {
+      if (mode !== "quiz") return;
+      const card = event.currentTarget.closest(".question-card");
+      const number = card.dataset.question;
+      if (state.answers[number]) return;
+      state.answers[number] = {choice:event.currentTarget.dataset.answer,answeredAt:new Date().toISOString()};
+      state.revision += 1;
+      saveState();
+      updateQuestion(Number(number));
+      updateSummary();
+      const q = QUESTIONS[Number(number)-1];
+      const correct = state.answers[number].choice === q.c;
+      announce(`第 ${number} 題${correct ? "答對" : "答錯"}，正確答案是 ${q.c}`);
+    }
+    function translationUnlocked(q) {
+      if (mode === "analysis") return true;
+      if (!q.t) return false;
+      if (q.t === "g39") return Boolean(state.answers[39] && state.answers[40]);
+      if (q.t === "g41") return Boolean(state.answers[41] && state.answers[42]);
+      return Boolean(state.answers[q.n]);
+    }
+    function updateQuestion(number) {
+      const q = QUESTIONS[number-1];
+      const card = $(`#q${number}`);
+      const record = state.answers[number];
+      const reveal = mode === "analysis" || Boolean(record);
+      const status = card.querySelector("[data-status]");
+      const feedback = card.querySelector("[data-feedback]");
+      const analysis = card.querySelector("[data-analysis]");
+      const focus = card.querySelector("[data-focus]");
+      card.querySelectorAll("[data-answer]").forEach(button => {
+        button.disabled = mode === "analysis" || Boolean(record);
+        button.classList.remove("is-correct","is-wrong");
+        button.removeAttribute("aria-pressed");
+        if (reveal && button.dataset.answer === q.c) button.classList.add("is-correct");
+        if (reveal && button.dataset.answer !== q.c) button.classList.add("is-wrong");
+        if (record && record.choice === button.dataset.answer) button.setAttribute("aria-pressed","true");
+      });
+      status.className = "status-pill";
+      if (mode === "analysis") {
+        status.textContent = `正式答案 ${q.c}`;
+        status.classList.add("correct");
+      } else if (!record) status.textContent = "未作答";
+      else if (record.choice === q.c) { status.textContent = "✅ 答對"; status.classList.add("correct"); }
+      else { status.textContent = "❌ 答錯"; status.classList.add("wrong"); }
+      focus.classList.toggle("hidden", mode === "quiz" && !record);
+      feedback.classList.toggle("hidden", !reveal);
+      feedback.setAttribute("aria-hidden", String(!reveal));
+      analysis.classList.toggle("hidden", !reveal);
+      analysis.setAttribute("aria-hidden", String(!reveal));
+      if (reveal) {
+        const right = !record || record.choice === q.c;
+        feedback.className = `feedback ${right ? "correct" : "wrong"}`;
+        feedback.textContent = mode === "analysis" ? `正式答案：${q.c}｜${q.focus}` : `${record.choice === q.c ? "✅ 答對了" : `❌ 你選 ${record.choice}`}｜正確答案：${q.c}`;
+      }
+      if (q.t) {
+        const classical = card.querySelector(".classical");
+        const unlocked = translationUnlocked(q);
+        classical.classList.toggle("hidden", !unlocked);
+        classical.setAttribute("aria-hidden", String(!unlocked));
+      }
+      card.classList.toggle("hidden", wrongOnly && (!record || record.choice === q.c));
+      const nav = $(`[data-nav="${number}"]`);
+      nav.classList.toggle("answered", Boolean(record));
+      nav.classList.toggle("wrong", Boolean(record && record.choice !== q.c));
+    }
+    function updateAll() {
+      document.body.dataset.mode = mode;
+      $("#analysisMode").setAttribute("aria-pressed", String(mode === "analysis"));
+      $("#quizMode").setAttribute("aria-pressed", String(mode === "quiz"));
+      $("#writingSection").classList.toggle("hidden", mode === "quiz");
+      QUESTIONS.forEach(q => updateQuestion(q.n));
+      updateSummary();
+    }
+    function updateSummary() {
+      const answered = Object.keys(state.answers).length;
+      const correct = QUESTIONS.filter(q => state.answers[q.n]?.choice === q.c).length;
+      $("#answeredCount").textContent = answered;
+      $("#progressFill").style.width = `${answered / QUESTIONS.length * 100}%`;
+      $("#correctSummary").textContent = answered ? `目前答對 ${correct} 題` : "尚未作答";
+      $("#submitQuiz").disabled = answered !== QUESTIONS.length;
+      $("#submitQuiz").textContent = answered === QUESTIONS.length ? "交卷並查看成績" : `尚有 ${QUESTIONS.length - answered} 題未作答`;
+      $("#wrongOnly").disabled = answered === 0;
+      updateResult();
+    }
+    function switchMode(nextMode) {
+      if (mode === nextMode) return;
+      const cards = [...document.querySelectorAll(".question-card:not(.hidden)")];
+      const nearest = cards.reduce((best, card) => Math.abs(card.getBoundingClientRect().top - 100) < Math.abs(best.getBoundingClientRect().top - 100) ? card : best, cards[0] || $("#q1"));
+      mode = nextMode;
+      localStorage.setItem(MODE_KEY, mode);
+      updateAll();
+      requestAnimationFrame(() => nearest.scrollIntoView({block:"start"}));
+      announce(mode === "analysis" ? "已切換到解析介面，全部答案與解析已顯示" : "已切換到測驗介面，未作答題目的答案與解析已隱藏");
+    }
+    function focusQuestion(number) {
+      const card = $(`#q${number}`);
+      if (card.classList.contains("hidden")) { wrongOnly = false; $("#wrongOnly").setAttribute("aria-pressed","false"); updateAll(); }
+      card.scrollIntoView({behavior:"smooth",block:"start"});
+      setTimeout(() => card.focus({preventScroll:true}), 380);
+      card.tabIndex = -1;
+    }
+    function setupObserver() {
+      const observer = new IntersectionObserver(entries => {
+        const visible = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        document.querySelectorAll(".nav-q.current").forEach(n => n.classList.remove("current"));
+        $(`[data-nav="${visible.target.dataset.question}"]`)?.classList.add("current");
+      }, {rootMargin:"-15% 0px -70%",threshold:[0,.15,.5]});
+      document.querySelectorAll(".question-card").forEach(card => observer.observe(card));
+    }
+
+    function applyFontScale() {
+      document.documentElement.style.setProperty("--text-scale", fontScale / 100);
+      $("#fontReadout").textContent = `${fontScale}%`;
+      $("#fontDown").disabled = fontScale <= 80;
+      $("#fontUp").disabled = fontScale >= 160;
+      localStorage.setItem(FONT_KEY, String(fontScale));
+    }
+    function changeFont(delta) {
+      fontScale = Math.max(80, Math.min(160, fontScale + delta));
+      applyFontScale();
+      announce(`目前網頁字級 ${fontScale}%`);
+    }
+
+    function openZoom(number) {
+      const card = $(`#q${number}`);
+      const source = card.querySelector(".image-shell");
+      $("#zoomTitle").textContent = `第 ${number} 題｜放大題目`;
+      $("#zoomStage").innerHTML = `<img src="${source.querySelector("img").src}" alt="第 ${number} 題放大原卷">`;
+      zoomScale = 1;
+      applyZoom();
+      $("#zoomDialog").showModal();
+    }
+    function openWritingZoom() {
+      $("#zoomTitle").textContent = "寫作加練｜放大題目";
+      $("#zoomStage").innerHTML = `<img src="${$("#writingSection img").src}" alt="寫作加練放大原卷">`;
+      zoomScale = 1;
+      applyZoom();
+      $("#zoomDialog").showModal();
+    }
+    function applyZoom() {
+      $("#zoomStage").style.width = `${zoomScale * 100}%`;
+      $("#zoomReadout").textContent = `${Math.round(zoomScale * 100)}%`;
+      $("#zoomOut").disabled = zoomScale <= .8;
+      $("#zoomIn").disabled = zoomScale >= 2.5;
+    }
+    function closeDialogs(event) { event.currentTarget.closest("dialog").close(); }
+
+    function grade(score) {
+      if (score >= 92) return "A++";
+      if (score >= 85) return "A+";
+      if (score >= 75) return "A";
+      if (score >= 61) return "B++";
+      return "B+";
+    }
+    function submitQuiz() {
+      if (Object.keys(state.answers).length !== QUESTIONS.length) return;
+      if (!state.submitted) {
+        const correct = QUESTIONS.filter(q => state.answers[q.n]?.choice === q.c).length;
+        const score = Math.round(correct / QUESTIONS.length * 1000) / 10;
+        const record = {attemptId:state.attemptId,learnerId:activeIdentity.id,title:ARTICLE_TITLE,questionBankVersion:QUESTION_BANK_VERSION,practiceType:"full",totalQuestionCount:QUESTIONS.length,correctCount:correct,wrongCount:QUESTIONS.length-correct,scorePercent:score,completedAt:new Date().toISOString()};
+        state.submitted = true;
+        state.completed = record;
+        state.history = [record,...state.history.filter(item => item.attemptId !== record.attemptId)];
+        state.revision += 1;
+        saveState();
+        saveCloudAttempt(record);
+      }
+      updateResult();
+      $("#resultCard").scrollIntoView({behavior:"smooth",block:"center"});
+    }
+    function updateResult() {
+      const card = $("#resultCard");
+      if (!state.submitted || !state.completed) { card.classList.add("hidden"); card.innerHTML = ""; return; }
+      const r = state.completed;
+      card.classList.remove("hidden");
+      card.innerHTML = `<h2>🎉 本輪成績｜${grade(r.scorePercent)}</h2><div class="result-grid"><div class="metric"><span>分數</span><strong>${r.scorePercent.toFixed(1)}</strong></div><div class="metric"><span>答對</span><strong>${r.correctCount}</strong></div><div class="metric"><span>答錯</span><strong>${r.wrongCount}</strong></div><div class="metric"><span>題數</span><strong>${r.totalQuestionCount}</strong></div></div><p>完成時間：${new Intl.DateTimeFormat("zh-TW",{dateStyle:"medium",timeStyle:"short",timeZone:"Asia/Taipei"}).format(new Date(r.completedAt))}</p>`;
+    }
+    function restartQuiz() {
+      if (!confirm("要清除本輪作答並重新開始嗎？歷次成績會保留。")) return;
+      const history = state.history || [];
+      const generation = (state.generation || 1) + 1;
+      state = {...freshState(),history,generation};
+      saveState();
+      wrongOnly = false;
+      $("#wrongOnly").setAttribute("aria-pressed","false");
+      mode = "quiz";
+      localStorage.setItem(MODE_KEY, mode);
+      updateAll();
+      focusQuestion(1);
+      announce("已重新開始全部題目");
+    }
+
+    function updateIdentityUI() {
+      const avatar = {owl:"🦉",fox:"🦊",rabbit:"🐰",bear:"🐻"}[activeIdentity.avatar] || "🦉";
+      $("#identityLabel").textContent = activeIdentity.id === "guest" ? "訪客｜僅存本機" : `${avatar} ${activeIdentity.nickname}`;
+    }
+    async function setupCloud(force=false) {
+      if (cloud.promise && !force) return cloud.promise;
+      cloudText("連線中");
+      cloud.status = "connecting";
+      cloud.promise = (async () => {
+        try {
+          const [{initializeApp,getApps,getApp},{getAuth,signInAnonymously},{getFirestore,doc,setDoc,serverTimestamp,waitForPendingWrites}] = await Promise.all([
+            import("https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js"),
+            import("https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js"),
+            import("https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js")
+          ]);
+          const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+          const auth = getAuth(app);
+          await signInAnonymously(auth);
+          cloud = {status:"ready",db:getFirestore(app),auth,api:{doc,setDoc,serverTimestamp,waitForPendingWrites},promise:cloud.promise};
+          cloudText("已連線");
+          if (activeIdentity.id !== "guest") { await ensureCloudLearner(); queueCloudProgress(); }
+        } catch (error) {
+          cloud.status = "error";
+          cloudText(error?.code === "auth/operation-not-allowed" ? "匿名登入未啟用" : "離線／未設定");
+        }
+      })();
+      return cloud.promise;
+    }
+    async function ensureCloudLearner() {
+      if (activeIdentity.id === "guest" || cloud.status !== "ready") return;
+      const {doc,setDoc,serverTimestamp,waitForPendingWrites} = cloud.api;
+      await setDoc(doc(cloud.db,COLLECTION_NAME,DOC_GLOBAL,"learners",activeIdentity.id),{learnerId:activeIdentity.id,nickname:activeIdentity.nickname,avatarId:activeIdentity.avatar,articleTitle:ARTICLE_TITLE,updatedAt:serverTimestamp()},{merge:true});
+      await waitForPendingWrites(cloud.db);
+    }
+    async function queueCloudProgress() {
+      if (activeIdentity.id === "guest") return;
+      if (cloud.status !== "ready") { cloudText("待同步"); return; }
+      try {
+        cloudText("同步中");
+        const {doc,setDoc,serverTimestamp,waitForPendingWrites} = cloud.api;
+        const ref = doc(cloud.db,COLLECTION_NAME,DOC_GLOBAL,"learners",activeIdentity.id,"progress","current");
+        await setDoc(ref,{learnerId:activeIdentity.id,generation:state.generation,revision:state.revision,questionBankVersion:QUESTION_BANK_VERSION,answers:state.answers,submitted:state.submitted,attemptId:state.attemptId,updatedAt:serverTimestamp()},{merge:false});
+        await waitForPendingWrites(cloud.db);
+        cloudText("已同步雲端");
+      } catch { cloudText("同步失敗"); }
+    }
+    async function saveCloudAttempt(record) {
+      if (activeIdentity.id === "guest" || cloud.status !== "ready") return;
+      try {
+        const {doc,setDoc,serverTimestamp,waitForPendingWrites} = cloud.api;
+        const ref = doc(cloud.db,COLLECTION_NAME,DOC_GLOBAL,"learners",activeIdentity.id,"attempts",record.attemptId);
+        await setDoc(ref,{...record,completedAt:serverTimestamp()},{merge:false});
+        await waitForPendingWrites(cloud.db);
+        cloudText("已同步雲端");
+      } catch { cloudText("成績待同步"); }
+    }
+    async function createProfile(event) {
+      event.preventDefault();
+      const nickname = $("#nickname").value.trim();
+      const avatar = $("#avatar").value;
+      if (!nickname || nickname.length > 40) { toast("請輸入 1～40 個字的暱稱"); return; }
+      const id = `learner_${crypto.randomUUID().replaceAll("-","").slice(0,16)}`;
+      activeIdentity = {id,nickname,avatar};
+      localStorage.setItem(IDENTITY_KEY,JSON.stringify(activeIdentity));
+      state = readState();
+      updateIdentityUI();
+      updateAll();
+      $("#profileDialog").close();
+      toast("已建立新的學習者；訪客答案未帶入");
+      if (cloud.status === "ready") {
+        try {
+          const {doc,setDoc,serverTimestamp,waitForPendingWrites} = cloud.api;
+          await setDoc(doc(cloud.db,COLLECTION_NAME,DOC_GLOBAL,"learners",id),{learnerId:id,nickname,avatarId:avatar,createdAt:serverTimestamp(),articleTitle:ARTICLE_TITLE},{merge:false});
+          await waitForPendingWrites(cloud.db);
+          cloudText("學習者已建立");
+          queueCloudProgress();
+        } catch { cloudText("學習者僅存本機"); }
+      }
+    }
+    function switchGuest() {
+      activeIdentity = {id:"guest",nickname:"訪客",avatar:"owl"};
+      localStorage.setItem(IDENTITY_KEY,JSON.stringify(activeIdentity));
+      state = readState();
+      updateIdentityUI();
+      updateAll();
+      $("#profileDialog").close();
+      cloudText("訪客不使用雲端");
+      toast("已切換為訪客，本機進度彼此獨立");
+    }
+
+    renderAll();
+    applyFontScale();
+    updateIdentityUI();
+    updateAll();
+    setupCloud();
+    $("#analysisMode").addEventListener("click", () => switchMode("analysis"));
+    $("#quizMode").addEventListener("click", () => switchMode("quiz"));
+    $("#fontDown").addEventListener("click", () => changeFont(-10));
+    $("#fontReset").addEventListener("click", () => { fontScale = 100; applyFontScale(); announce("目前網頁字級 100%"); });
+    $("#fontUp").addEventListener("click", () => changeFont(10));
+    $("#zoomOut").addEventListener("click", () => { zoomScale = Math.max(.8,zoomScale-.2); applyZoom(); });
+    $("#zoomReset").addEventListener("click", () => { zoomScale = 1; applyZoom(); });
+    $("#zoomIn").addEventListener("click", () => { zoomScale = Math.min(2.5,zoomScale+.2); applyZoom(); });
+    document.querySelectorAll("[data-close-dialog]").forEach(button => button.addEventListener("click",closeDialogs));
+    $("#openProfile").addEventListener("click", () => $("#profileDialog").showModal());
+    $("#profileForm").addEventListener("submit",createProfile);
+    $("#useGuest").addEventListener("click",switchGuest);
+    $("#reconnectCloud").addEventListener("click",() => setupCloud(true));
+    $("#submitQuiz").addEventListener("click",submitQuiz);
+    $("#wrongOnly").addEventListener("click",() => { wrongOnly = !wrongOnly; $("#wrongOnly").setAttribute("aria-pressed",String(wrongOnly)); $("#wrongOnly").textContent = wrongOnly ? "顯示全部題目" : "只看錯題"; updateAll(); });
+    $("#restartQuiz").addEventListener("click",restartQuiz);
+    document.querySelectorAll("dialog").forEach(dialog => dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); }));
+  </script>
+</body>
+</html>
